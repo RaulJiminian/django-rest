@@ -22,6 +22,11 @@ export default function Form({ setToggle }) {
     if (created) {
       setToggle((prev) => !prev);
     }
+    setLeadData({
+      name: "",
+      email: "",
+      message: "",
+    });
   };
 
   const { name, email, message } = leadData;
