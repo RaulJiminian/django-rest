@@ -1,8 +1,8 @@
 import "./App.css";
 import { useState, useEffect } from "react";
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import { getLeads, deleteLeads } from "./services/leads";
-import { verifyUser } from "./services/users";
+import { logOut, verifyUser } from "./services/users";
 import Header from "./components/layout/Header";
 import Dashboard from "./components/leads/Dashboard";
 import Login from "./components/login/Login";
@@ -12,13 +12,15 @@ const App = () => {
   const [loggedIn, setLoggedIn] = useState(false);
   const [toggle, setToggle] = useState(false);
 
+  const navigate = useNavigate()
+
   useEffect(() => {
     const fetchLeads = async () => {
       const leads = await getLeads();
       setLeads(leads);
     };
     fetchLeads();
-  }, [toggle]);
+  }, [toggle, loggedIn]);
 
   useEffect(() => {
     const fetchUser = async () => {
@@ -33,9 +35,15 @@ const App = () => {
     setToggle((prev) => !prev);
   };
 
+  const handleLogout = async () => {
+    await logOut()
+    setLoggedIn(false)
+    navigate('/')
+  }
+
   return (
     <div className="App">
-      <Header />
+      <Header handleLogout={handleLogout}/>
       <div className="container">
         <Routes>
           <Route
