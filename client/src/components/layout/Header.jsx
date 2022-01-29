@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 export default function Header() {
   return (
@@ -20,7 +21,8 @@ export default function Header() {
             Lead Manager
           </a>
           <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-            {/* Insert LI items */}
+            <Link to="/">Home</Link>
+            <Link to="/login/">Log In</Link>
           </ul>
         </div>
       </div>
